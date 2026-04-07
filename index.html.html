@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Dispare Trading — оптовые поставки автозапчастей по РФ</title>
+  <meta name="description" content="Оптовые поставки оригинальных и качественных автозапчастей. Надёжный партнёр для автосервисов, СТО и дистрибьюторов по всей России.">
+  <meta name="keywords" content="автозапчасти оптом, поставки запчастей РФ, Dispare Trading, оптовая закупка, авторазбор, дистрибьюция">
+  <meta name="author" content="Dispare Trading">
+  <meta property="og:title" content="Dispare Trading — оптовая торговля автозапчастями">
+  <meta property="og:description" content="Стабильные поставки, собственный склад, работа с юрлицами. Доставка по РФ.">
+  <meta property="og:type" content="website">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+      color: #1A1F2C;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* header */
+    .header {
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #eef2f6;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.02);
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #0B2B5E 0%, #1D4A7C 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .logo span {
+      color: #D32F2F;
+      background: none;
+      background-clip: unset;
+      -webkit-background-clip: unset;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      font-weight: 500;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #2c3e50;
+      transition: 0.2s;
+      font-size: 1rem;
+    }
+    .nav-links a:hover {
+      color: #D32F2F;
+    }
+    .contact-btn {
+      background: #D32F2F;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.25s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .contact-btn:hover {
+      background: #B71C1C;
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(211,47,47,0.25);
+    }
+
+    /* hero */
+    .hero {
+      padding: 80px 0 100px;
+      background: linear-gradient(112deg, #F8FAFE 0%, #EFF3F9 100%);
+    }
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .hero-content {
+      flex: 1;
+    }
+    .hero-badge {
+      background: rgba(211,47,47,0.1);
+      color: #B71C1C;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 span {
+      color: #D32F2F;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #334155;
+      max-width: 550px;
+      margin-bottom: 32px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 24px;
+    }
+    .stat h3 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0B2B5E;
+    }
+    .stat p {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #475569;
+    }
+    .hero-image {
+      flex: 1;
+      text-align: center;
+    }
+    .hero-image svg {
+      max-width: 100%;
+      height: auto;
+    }
+    @media (max-width: 900px) {
+      .hero h1 { font-size: 2.4rem; }
+      .hero-grid { flex-direction: column; text-align: center; }
+      .hero p { margin-left: auto; margin-right: auto; }
+      .hero-stats { justify-content: center; }
+      .nav-links { display: none; }
+      .nav { justify-content: center; }
+    }
+
+    /* sections */
+    .section {
+      padding: 80px 0;
+    }
+    .section-light {
+      background: #ffffff;
+    }
+    .section-dark {
+      background: #F9FBFE;
+    }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 56px;
+      letter-spacing: -0.01em;
+      position: relative;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 70px;
+      height: 4px;
+      background: #D32F2F;
+      margin: 16px auto 0;
+      border-radius: 4px;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 32px 24px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.04);
+      transition: 0.25s ease;
+      border: 1px solid #edf2f7;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+      border-color: #e0e7f0;
+    }
+    .card-icon {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+    }
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    .card p {
+      color: #475569;
+    }
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      gap: 28px;
+      margin-top: 20px;
+    }
+    .feature-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .feature-icon {
+      background: #D32F2F10;
+      width: 48px;
+      height: 48px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .feature-text h4 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+    .contact-block {
+      background: linear-gradient(125deg, #0B2B5E 0%, #123e6e 100%);
+      border-radius: 40px;
+      padding: 56px 40px;
+      color: white;
+      text-align: center;
+    }
+    .contact-block h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px;
+      margin: 40px 0 24px;
+    }
+    .contact-item {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(4px);
+      border-radius: 60px;
+      padding: 12px 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+    }
+    .contact-item a {
+      color: white;
+      text-decoration: none;
+    }
+    .callback-form {
+      max-width: 500px;
+      margin: 32px auto 0;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .callback-form input {
+      flex: 2;
+      min-width: 200px;
+      padding: 14px 20px;
+      border-radius: 50px;
+      border: none;
+      font-size: 1rem;
+      background: white;
+      outline: none;
+    }
+    .callback-form button {
+      background: #D32F2F;
+      border: none;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .footer {
+      background: #0F172A;
+      color: #94a3b8;
+      padding: 48px 0 32px;
+      text-align: center;
+    }
+    .footer a {
+      color: #cbd5e1;
+      text-decoration: none;
+    }
+    .footer p {
+      margin-top: 24px;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 640px) {
+      .container { padding: 0 20px; }
+      .section-title { font-size: 1.8rem; }
+      .contact-block { padding: 36px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container">
+    <div class="nav">
+      <div class="logo">DISPARE<span>TRADING</span></div>
+      <ul class="nav-links">
+        <li><a href="#about">О компании</a></li>
+        <li><a href="#services">Каталог</a></li>
+        <li><a href="#advantages">Почему мы</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+      <a href="#contacts" class="contact-btn">Связаться</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge">🇷🇺 Официальный оптовый партнёр</div>
+        <h1>Оптовые поставки <span>автозапчастей</span> по всей России</h1>
+        <p>Прямые контракты, собственный склад и быстрая логистика. Надёжный ресурс для автосервисов, сетей СТО и дистрибьюторов.</p>
+        <div class="hero-stats">
+          <div class="stat"><h3>1200+</h3><p>позиций в наличии</p></div>
+          <div class="stat"><h3>65+</h3><p>городов доставки</p></div>
+          <div class="stat"><h3>24/7</h3><p>обработка заявок</p></div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <svg width="380" viewBox="0 0 380 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M80 180 L300 180 L320 220 L60 220 L80 180Z" fill="#D32F2F" fill-opacity="0.15" stroke="#D32F2F" stroke-width="2"/>
+          <circle cx="190" cy="140" r="45" fill="#0B2B5E" fill-opacity="0.08" stroke="#0B2B5E" stroke-width="1.5"/>
+          <path d="M170 115 L210 115 L210 165 L170 165 Z" fill="#1D4A7C" fill-opacity="0.2" stroke="#0B2B5E" stroke-width="1.5"/>
+          <rect x="160" y="125" width="60" height="8" rx="4" fill="#D32F2F" fill-opacity="0.8"/>
+          <rect x="175" y="145" width="30" height="4" rx="2" fill="#334155"/>
+          <path d="M100 210 L280 210 L290 240 L90 240 L100 210Z" fill="#0B2B5E" fill-opacity="0.1"/>
+          <text x="140" y="260" font-size="14" fill="#2c3e50" font-weight="bold">🔧 Двигатель</text>
+          <text x="250" y="260" font-size="14" fill="#2c3e50" font-weight="bold">⚙️ Трансмиссия</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- О компании -->
+  <section id="about" class="section section-light">
+    <div class="container">
+      <div class="section-title">О компании Dispare Trading</div>
+      <div style="max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.05rem; color: #1e293b;">
+        <p style="margin-bottom: 20px;">Мы занимаемся оптовой закупкой автозапчастей напрямую от проверенных производителей и европейских/азиатских поставщиков. Более 7 лет на рынке РФ, наша миссия — обеспечить стабильные поставки оригинальных комплектующих и аналогов премиум-качества.</p>
+        <p>Благодаря отлаженной логистике и собственному складу в Москве и СПБ, мы доставляем заказы в любую точку России: от Калининграда до Владивостока. Работаем с юридическими лицами, ИП и автокомпаниями на условиях долгосрочного партнёрства.</p>
+      </div>
+      <div class="features-list" style="margin-top: 56px;">
+        <div class="feature-item">
+          <div class="feature-icon">🏭</div>
+          <div class="feature-text"><h4>Прямые импортные контракты</h4><p>Минимизация посредников = лучшие оптовые цены.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">📦</div>
+          <div class="feature-text"><h4>Складская программа</h4><p>Более 1500 наименований ходовых позиций всегда в наличии.</p></div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🚚</div>
+          <div class="feature-text"><h4>Доставка ТК и логистика</h4><p>Сотрудничаем с СДЭК, Деловые Линии, ПЭК — выгодные тарифы.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- услуги/каталог -->
+  <section id="services" class="section section-dark">
+    <div class="container">
+      <div class="section-title">Основные категории поставок</div>
+      <div class="cards-grid">
+        <div class="card"><div class="card-icon">🔩</div><h3>Двигатели и детали ДВС</h3><p>Поршневые, ГРМ, турбины, прокладки — оригинал и качественные аналоги.</p></div>
+        <div class="card"><div class="card-icon">⚙️</div><h3>Трансмиссия и мосты</h3><p>КПП, раздатки, редукторы, полуоси, сцепление под заказ и со склада.</p></div>
+        <div class="card"><div class="card-icon">🛞</div><h3>Ходовая часть</h3><p>Рычаги, амортизаторы, сайлентблоки, ступицы — полный спектр.</p></div>
+        <div class="card"><div class="card-icon">🛑</div><h3>Тормозная система</h3><p>Диски, колодки, суппорты, барабаны — оптом от ведущих брендов.</p></div>
+        <div class="card"><div class="card-icon">🔌</div><h3>Электрика и оптика</h3><p>Генераторы, стартеры, фары, датчики, проводка.</p></div>
+        <div class="card"><div class="card-icon">🧴</div><h3>Расходники и фильтры</h3><p>Масла, фильтры, ремни, свечи — крупный опт и мелкий опт.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Преимущества -->
+  <section id="advantages" class="section section-light">
+    <div class="container">
+      <div class="section-title">Почему выбирают нас</div>
+      <div class="features-list">
+        <div class="feature-item"><div class="feature-icon">✅</div><div class="feature-text"><h4>Гарантия качества</h4><p>Все позиции сертифицированы, возврат брака по договору.</p></div></div>
+        <div class="feature-item"><div class="feature-icon">📄</div><div class="feature-text"><h4>Работа с НДС</h4><p>Полный пакет документов, закрывающие акты, счета-фактуры.</p></div></div>
+        <div class="feature-item"><div class="feature-icon">⏱️</div><div class="feature-text"><h4>Скорость обработки</h4><p>Менеджеры готовы рассчитать заказ за 20 минут.</p></div></div>
+        <div class="feature-item"><div class="feature-icon">📊</div><div class="feature-text"><h4>Гибкие цены</h4><p>Скидки от объёма, накопительная система для постоянных клиентов.</p></div></div>
+        <div class="feature-item"><div class="feature-icon">📞</div><div class="feature-text"><h4>Персональный менеджер</h4><p>Закреплённый специалист для B2B клиентов.</p></div></div>
+        <div class="feature-item"><div class="feature-icon">🗺️</div><div class="feature-text"><h4>Доставка по РФ</h4><p>Тарифы перевозчиков без наценки, отправка день в день.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты + форма -->
+  <section id="contacts" class="section section-dark">
+    <div class="container">
+      <div class="contact-block">
+        <h2>📞 Начните оптовое сотрудничество</h2>
+        <p style="opacity: 0.9; margin-bottom: 12px;">Оставьте заявку, и наш специалист свяжется с вами для коммерческого предложения</p>
+        <div class="contact-row">
+          <div class="contact-item">📧 <a href="mailto:parts@disparetrading.ru">parts@disparetrading.ru</a></div>
+          <div class="contact-item">📱 <a href="tel:+74951234567">+7 (495) 123-45-67</a></div>
+          <div class="contact-item">💬 <a href="#">Telegram / WhatsApp</a></div>
+        </div>
+        <form class="callback-form" action="https://formspree.io/f/xqapzwjr" method="POST">
+          <input type="email" name="email" placeholder="Ваш e-mail для КП" required>
+          <input type="text" name="company" placeholder="Компания / ИП">
+          <button type="submit">Отправить запрос</button>
+        </form>
+        <p style="font-size: 0.8rem; margin-top: 24px;">✉️ Или напишите нам — ответим в течение 2 часов в рабочие дни</p>
+        <p style="margin-top: 20px;">📍 Центральный офис: г. Москва, ул. Автомоторная, 12<br>Складской комплекс: Московская область, г. Подольск</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="logo" style="color: white; background: none; font-size: 1.6rem; margin-bottom: 16px;">DISPARE<span style="color:#D32F2F;">TRADING</span></div>
+    <p style="color: #94a3b8;">© 2025 Dispare Trading — оптовые поставки автозапчастей по России. Все права защищены.</p>
+    <p><a href="#" style="color:#cbd5e1;">Политика конфиденциальности</a> | <a href="#" style="color:#cbd5e1;">Реквизиты компании</a></p>
+  </div>
+</footer>
+
+<!-- tiny scroll behaviour -->
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === "#" || href === "") return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  // simple form alert (for demo, but formspree will handle real)
+  const form = document.querySelector('.callback-form');
+  if(form) {
+    form.addEventListener('submit', function(e) {
+      // если formspree не сработает (или блокировка), покажем доп уведомление
+      setTimeout(() => {}, 100);
+    });
+  }
+</script>
+</body>
+</html>
