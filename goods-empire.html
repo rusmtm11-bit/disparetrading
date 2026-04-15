@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goods Empire | International Trading & Supply Chain</title>
+  <meta name="description" content="Goods Empire – международная торговая компания: импорт, экспорт, sourcing, дистрибуция, логистика. Продукты питания, сельхозпродукция, товары для дома, промышленные товары.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: #1a2a3a;
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    /* header */
+    header {
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .logo span:first-child { color: #0b2b5e; }
+    .logo span:last-child { color: #c0392b; font-weight: 700; }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #1e2f3e;
+      transition: 0.2s;
+    }
+    .nav-links a:hover { color: #c0392b; }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+    /* buttons */
+    .btn-primary {
+      background: #c0392b;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      transition: 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover {
+      background: #a93226;
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      border: 1.5px solid #c0392b;
+      background: transparent;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      color: #c0392b;
+      transition: 0.2s;
+    }
+    .btn-outline:hover {
+      background: #c0392b;
+      color: white;
+    }
+    /* hero */
+    .hero {
+      background: linear-gradient(105deg, #f4f7fc 0%, #eef2f7 100%);
+      padding: 80px 0;
+    }
+    .hero-grid {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .hero-content { flex: 1; }
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 24px;
+      color: #0b2b5e;
+    }
+    .hero-content p {
+      font-size: 1.1rem;
+      color: #2c3e50;
+      margin-bottom: 32px;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 24px;
+    }
+    .stat h3 { font-size: 1.6rem; color: #0b2b5e; }
+    .hero-image { flex: 1; text-align: center; }
+    .hero-image svg { max-width: 100%; height: auto; }
+    /* sections */
+    .section {
+      padding: 80px 0;
+    }
+    .section-gray { background: #f9fafc; }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 56px;
+      position: relative;
+    }
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 70px;
+      height: 3px;
+      background: #c0392b;
+      margin: 16px auto 0;
+      border-radius: 3px;
+    }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+      transition: 0.25s;
+      border: 1px solid #eef2f6;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.08);
+    }
+    .card i { font-size: 2.2rem; color: #c0392b; margin-bottom: 16px; }
+    .card h3 { font-size: 1.4rem; margin-bottom: 12px; }
+    .product-category-group {
+      margin-bottom: 48px;
+    }
+    .product-category-group h3 {
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+      border-left: 4px solid #c0392b;
+      padding-left: 16px;
+    }
+    .subcat-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .subcat-tag {
+      background: #f0f2f5;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+    }
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 32px;
+      border-radius: 32px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+    }
+    .contact-form input, .contact-form select, .contact-form textarea {
+      width: 100%;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      border: 1px solid #ddd;
+      border-radius: 60px;
+      font-family: inherit;
+    }
+    .contact-form textarea { border-radius: 24px; resize: vertical; }
+    footer {
+      background: #0b2b5e;
+      color: #ccc;
+      padding: 48px 0 24px;
+      text-align: center;
+    }
+    footer a { color: #ffb6b0; text-decoration: none; }
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .menu-toggle { display: block; }
+      .hero h1 { font-size: 2rem; }
+      .hero-grid { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="nav">
+      <div class="logo"><span>GOODS</span> <span>EMPIRE</span></div>
+      <button class="menu-toggle" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#activities">Activities</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#quality">Compliance</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <h1>International Trading, Sourcing & Distribution Solutions</h1>
+        <p>Goods Empire is engaged in import, export, wholesale distribution, supply chain coordination, and cross-border trade across food, agricultural, consumer, household, industrial, and general merchandise products.</p>
+        <a href="#contact" class="btn-primary">Partner with us</a>
+        <div class="hero-stats">
+          <div class="stat"><h3>50+</h3><p>Global Markets</p></div>
+          <div class="stat"><h3>200+</h3><p>Supplier Network</p></div>
+          <div class="stat"><h3>24/7</h3><p>Trade Support</p></div>
+        </div>
+      </div>
+      <div class="hero-image">
+        <svg width="320" viewBox="0 0 400 300" fill="none">
+          <rect x="40" y="80" width="320" height="160" rx="20" fill="#0b2b5e" fill-opacity="0.08"/>
+          <circle cx="200" cy="160" r="60" fill="#c0392b" fill-opacity="0.1"/>
+          <path d="M160 140 L240 140 L260 180 L140 180 L160 140Z" fill="#c0392b" fill-opacity="0.3"/>
+          <text x="200" y="230" text-anchor="middle" fill="#0b2b5e" font-weight="bold">Global Trade</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-title">About Goods Empire</div>
+      <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <p style="margin-bottom: 24px;">Goods Empire is an international trading, sourcing, distribution, and supply chain company. We operate across food, agricultural products, consumer goods, household items, industrial supplies, and general merchandise. Our business model combines global procurement, cross-border trade, and B2B distribution with strong compliance and logistics coordination.</p>
+        <p>We bridge suppliers and buyers across multiple jurisdictions, offering tailored solutions for wholesale, private label, and commercial supply. Our mission is to deliver reliability, transparency, and efficiency in international trade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Activities -->
+  <section id="activities" class="section section-gray">
+    <div class="container">
+      <div class="section-title">Our Business Activities</div>
+      <div class="cards-grid">
+        <div class="card"><i class="fas fa-globe"></i><h3>International Trade</h3><p>Import, export, cross-border trade, global sourcing, wholesale supply, and distribution.</p></div>
+        <div class="card"><i class="fas fa-search"></i><h3>Procurement & Sourcing</h3><p>Supplier sourcing, product procurement, vendor coordination, contract supply, bulk purchasing.</p></div>
+        <div class="card"><i class="fas fa-truck"></i><h3>Distribution & Commercial Ops</h3><p>B2B supply, wholesale distribution, private label, branded distribution, market expansion support.</p></div>
+        <div class="card"><i class="fas fa-boxes"></i><h3>Supply Chain & Logistics</h3><p>Shipment coordination, freight, warehousing, order consolidation, customs documentation, cold-chain support.</p></div>
+        <div class="card"><i class="fas fa-palette"></i><h3>Product Development</h3><p>Private label projects, packaging coordination, quality control, supplier management, portfolio building.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section id="products" class="section">
+    <div class="container">
+      <div class="section-title">Product Categories</div>
+      <div class="product-category-group">
+        <h3>🍎 Food & Grocery Products</h3>
+        <p>Pasta, flour, semolina, olives, olive oil, pickles, condiments, antipasti, tea, coffee, snacks, noodles, sauces, canned food, processed fruits, jams, syrups, confectionery, beverages, wines & spirits.</p>
+        <div class="subcat-list"><span class="subcat-tag">Pasta & grains</span><span class="subcat-tag">Olive products</span><span class="subcat-tag">Pickles & condiments</span><span class="subcat-tag">Tea & coffee</span><span class="subcat-tag">Confectionery</span><span class="subcat-tag">Beverages</span></div>
+      </div>
+      <div class="product-category-group">
+        <h3>🍇 Fresh Produce & Agricultural</h3>
+        <p>Fresh fruits (citrus, grapes, berries, avocados, apples, pears, dates, bananas, pineapple, tropical & exotic fruits), fresh vegetables, grower/exporter partnerships.</p>
+        <div class="subcat-list"><span class="subcat-tag">Citrus</span><span class="subcat-tag">Berries</span><span class="subcat-tag">Avocados</span><span class="subcat-tag">Tropical fruits</span><span class="subcat-tag">Exotic fruits</span><span class="subcat-tag">Fresh vegetables</span></div>
+      </div>
+      <div class="product-category-group">
+        <h3>🏠 Household & Consumer Goods</h3>
+        <p>Kitchenware, cookware, bakeware, tableware, drinkware, storage, home décor, furniture, cleaning items, seasonal gifts, stationery, photo frames, toys & creative products.</p>
+        <div class="subcat-list"><span class="subcat-tag">Kitchenware</span><span class="subcat-tag">Storage</span><span class="subcat-tag">Home décor</span><span class="subcat-tag">Stationery</span><span class="subcat-tag">Toys</span></div>
+      </div>
+      <div class="product-category-group">
+        <h3>👗 Personal, Fashion & Lifestyle</h3>
+        <p>Accessories, apparel, footwear, underwear, textile products, travel accessories, beauty & personal accessories.</p>
+      </div>
+      <div class="product-category-group">
+        <h3>🐾 Pet Products</h3>
+        <p>Pet accessories, furniture, bedding, toys, pet care items, cat litter & household pet products.</p>
+      </div>
+      <div class="product-category-group">
+        <h3>🔋 Electrical & Technical Products</h3>
+        <p>Batteries, household scales, kitchen scales, body scales, small consumer electronics, electrical accessories.</p>
+      </div>
+      <div class="product-category-group">
+        <h3>🏭 Industrial & General Trade</h3>
+        <p>Silica gel products, adhesives, glue products, technical materials, industrial consumables, general wholesale merchandise.</p>
+      </div>
+      <p style="margin-top: 24px; font-style: italic; color: #4a627a;">* Products may be supplied based on client requirements and market needs. Custom sourcing available.</p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section section-gray">
+    <div class="container">
+      <div class="section-title">What’s Included in Our Services</div>
+      <div class="cards-grid">
+        <div class="card"><i class="fas fa-chart-line"></i><h3>International Sourcing</h3><p>Supplier identification, procurement support, export/import assistance.</p></div>
+        <div class="card"><i class="fas fa-warehouse"></i><h3>Wholesale & Distribution</h3><p>B2B supply, private label sourcing, supply chain management, order consolidation.</p></div>
+        <div class="card"><i class="fas fa-file-invoice"></i><h3>Logistics & Documentation</h3><p>Warehousing support, customs coordination, perishable/cold chain, documentation support.</p></div>
+        <div class="card"><i class="fas fa-handshake"></i><h3>Commercial Representation</h3><p>Business matching between suppliers and buyers, regional trade support.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section id="whyus" class="section">
+    <div class="container">
+      <div class="section-title">Why Choose Us</div>
+      <div class="cards-grid">
+        <div class="card"><i class="fas fa-layer-group"></i><h3>Diversified Portfolio</h3><p>Food, non-food, industrial – broad product range.</p></div>
+        <div class="card"><i class="fas fa-network-wired"></i><h3>Global Network</h3><p>Reliable supplier relationships across continents.</p></div>
+        <div class="card"><i class="fas fa-chart-simple"></i><h3>Flexible Solutions</h3><p>Tailored for volume and recurring trade.</p></div>
+        <div class="card"><i class="fas fa-check-circle"></i><h3>Quality & Compliance</h3><p>Due diligence, documentation, responsible practices.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quality & Compliance -->
+  <section id="quality" class="section section-gray">
+    <div class="container">
+      <div class="section-title">Quality & Compliance</div>
+      <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <p>We operate with supplier due diligence, quality-focused sourcing, and full awareness of import/export regulations. Our commitment to operational transparency, responsible business practices, and reliable documentation support ensures smooth international trade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="section-title">Contact Us</div>
+      <div class="contact-form">
+        <form action="https://formsubmit.co/your-email@example.com" method="POST">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="text" name="name" placeholder="Full Name / Company" required>
+          <input type="email" name="email" placeholder="Email address" required>
+          <input type="tel" name="phone" placeholder="Phone number">
+          <select name="inquiry_type">
+            <option value="sourcing">Sourcing Inquiry</option>
+            <option value="product">Product Inquiry</option>
+            <option value="partnership">Partnership</option>
+            <option value="logistics">Logistics Inquiry</option>
+            <option value="general">General</option>
+          </select>
+          <textarea rows="4" name="message" placeholder="Your message..."></textarea>
+          <button type="submit" class="btn-primary" style="width:100%;">Send Inquiry</button>
+        </form>
+        <p style="margin-top: 24px; text-align: center;">📧 trade@goodsempire.com  |  📞 +44 20 7946 0123  |  🌐 www.goodsempire.com</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2025 Goods Empire – International Trading & Supply Chain Solutions</p>
+    <p style="margin-top: 12px;"><a href="#">Privacy Policy</a> | <a href="#">Terms</a></p>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const btn = document.getElementById('mobileMenuBtn');
+  const nav = document.getElementById('navLinks');
+  if(btn) {
+    btn.addEventListener('click', () => {
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    });
+  }
+  // smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if(href === "#") return;
+      const target = document.querySelector(href);
+      if(target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
