@@ -292,6 +292,20 @@
       color: white;
       text-decoration: none;
     }
+    /* кнопки мессенджеров */
+    .messenger-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .messenger-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+    }
     .callback-form {
       max-width: 500px;
       margin: 32px auto 0;
@@ -442,32 +456,44 @@
     </div>
   </section>
 
-  <!-- Контакты + форма -->
- <section id="contacts" class="section section-dark">
+  <!-- Контакты без формы заявки -->
+  <section id="contacts" class="section section-dark">
     <div class="container">
       <div class="contact-block">
         <h2>📞 Начните оптовое сотрудничество</h2>
-        <p style="opacity: 0.9; margin-bottom: 12px;">Оставьте заявку, и наш специалист свяжется с вами для коммерческого предложения</p>
+        <p style="opacity: 0.9; margin-bottom: 12px;">Свяжитесь с нами напрямую — ответим в течение 2 часов в рабочие дни</p>
         <div class="contact-row">
           <div class="contact-item">📧 <a href="mailto:distribution@disparetrading.ru">distribution@disparetrading.ru</a></div>
           <div class="contact-item">📱 <a href="tel:+79932607079">+7 (993) 260-70-79</a></div>
-          <div class="contact-item">💬 <a href="#">Telegram / WhatsApp</a></div>
         </div>
+        <div style="display: flex; justify-content: center; gap: 20px; margin: 24px 0;">
+          <a href="https://t.me/dispare_trading" target="_blank" rel="noopener noreferrer"
+             class="messenger-btn" style="background: #0088cc;">💬 Telegram</a>
+          <a href="https://wa.me/79932607079" target="_blank" rel="noopener noreferrer"
+             class="messenger-btn" style="background: #25D366;">💬 WhatsApp</a>
+        </div>
+
+        <!-- ========================================================
+             Старая форма сбора заявок (закомментирована, неактивна).
+             Чтобы вернуть, удалите строки с <!-- и --\>
+        ============================================================ -->
+        <!--
         <form class="callback-form" action="https://formsubmit.co/distribution@disparetrading.ru" method="POST">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_subject" value="Новая заявка с сайта Dispare Trading">
           <input type="hidden" name="_replyto" value="email">
           <input type="hidden" name="_next" value="https://www.disparetrading.ru?message=success">
           <input type="text" name="_gotcha" style="display:none">
-
           <input type="email" name="email" placeholder="Ваш e-mail *" required>
           <input type="tel" name="phone" placeholder="Ваш телефон">
           <input type="text" name="company" placeholder="Компания / ИП">
           <textarea name="message" rows="3" placeholder="Что вас интересует? (например, каталог, оптовые цены, сотрудничество)" style="width:100%; border-radius:30px; padding:12px 20px; border:none; font-family:inherit; resize:vertical;"></textarea>
           <button type="submit">Отправить запрос</button>
         </form>
-        <p style="font-size: 0.8rem; margin-top: 24px;">✉️ Или напишите нам — ответим в течение 2 часов в рабочие дни</p>
-        <p style="margin-top: 20px;">📍 Центральный офис: г. Москва<br>Логистика через сеть партнёрских складов</p>
+        -->
+        <!-- Конец закомментированной формы -->
+
+        <p style="margin-top: 24px;">📍 Центральный офис: г. Москва<br>Логистика через сеть партнёрских складов</p>
       </div>
     </div>
   </section>
@@ -494,8 +520,10 @@
     });
   });
 </script>
-  <script>
-  // Показываем всплывающее сообщение, если заявка успешно отправлена
+
+<!-- Скрипт успешной отправки больше не нужен, но оставлен на случай возврата формы -->
+<script>
+  /*
   if (window.location.search.includes('message=success')) {
     const toast = document.createElement('div');
     toast.textContent = '✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.';
@@ -512,9 +540,9 @@
     toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 5000);
-    // Убираем параметр из URL без перезагрузки страницы
     history.replaceState({}, document.title, window.location.pathname);
   }
+  */
 </script>
 </body>
 </html>
