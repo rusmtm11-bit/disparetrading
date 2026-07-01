@@ -123,7 +123,8 @@ p { color: var(--graphite-soft); }
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.brand-mark svg { width: 18px; height: 18px; }
+.brand-mark svg { width: 18px; height: 18px; animation: spin 7s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .brand-mark svg { animation: none; } }
 .brand-word { font-family: var(--font-display); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.01em; color: var(--graphite); line-height: 1; }
 .brand-word small { display: block; font-size: 0.55rem; letter-spacing: 0.22em; font-weight: 500; color: var(--graphite-soft); margin-top: 4px; }
 
@@ -192,8 +193,8 @@ p { color: var(--graphite-soft); }
 .hero-point { display: flex; align-items: center; gap: 12px; font-size: 0.92rem; color: var(--graphite); font-weight: 500; }
 .hero-point .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--terracotta); flex-shrink: 0; }
 
-.hero-visual { position: relative; aspect-ratio: 1 / 0.95; }
-.hero-visual svg { width: 100%; height: 100%; }
+.hero-visual { position: relative; }
+.hero-visual svg { display: block; width: 100%; height: auto; }
 
 @media (max-width: 900px) {
   .hero { padding: 56px 0 64px; }
@@ -204,7 +205,7 @@ p { color: var(--graphite-soft); }
 /* ---------- sections ---------- */
 .section { padding: 96px 0; }
 .section-alt { background: var(--cream-alt); }
-.section-dark { background: var(--graphite); color: var(--cream); }
+.section-dark { background: var(--graphite); color: var(--cream); position: relative; overflow: hidden; }
 .section-dark h2, .section-dark h3 { color: var(--cream); }
 .section-dark p { color: #C9BFAE; }
 .section-head { max-width: 620px; margin-bottom: 56px; }
@@ -336,13 +337,54 @@ p { color: var(--graphite-soft); }
 .map-frame iframe { width: 100%; height: 100%; border: 0; }
 
 /* ---------- scroll reveal ---------- */
-[data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
-[data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+[data-reveal] { opacity: 0; transform: translateY(26px) scale(0.98); transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.7s cubic-bezier(.2,.7,.2,1); }
+[data-reveal].is-visible { opacity: 1; transform: translateY(0) scale(1); }
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ---------- hero motion ---------- */
+.hero-visual { transition: transform 0.15s ease-out; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.wheel-spin { transform-origin: 240px 220px; animation: spin 20s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .wheel-spin { animation: none !important; }
+}
+
+/* ---------- stat strip ---------- */
+.stat-strip { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--line); }
+.stat-strip .stat-num { font-family: var(--font-display); font-size: 2rem; font-weight: 600; color: var(--graphite); line-height: 1; }
+.stat-strip .stat-label { font-size: 0.85rem; color: var(--graphite-soft); margin-top: 6px; max-width: 160px; }
+
+/* ---------- marquee ---------- */
+.marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 22px 0; }
+.marquee-track { display: flex; width: max-content; gap: 56px; animation: marquee 26s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-item { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-size: 0.95rem; font-weight: 500; color: var(--graphite-soft); white-space: nowrap; }
+.marquee-item svg { width: 22px; height: 22px; flex-shrink: 0; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+
+/* ---------- tilt cards ---------- */
+.cat-card, .adv-item { will-change: transform; }
+
+/* ---------- decorative rotating gear watermark ---------- */
+.gear-watermark { position: absolute; top: 50%; right: -80px; width: 380px; height: 380px; transform: translateY(-50%); pointer-events: none; opacity: 0.06; animation: spin 90s linear infinite; }
+.section-dark .gear-watermark { opacity: 0.08; }
+@media (prefers-reduced-motion: reduce) { .gear-watermark { animation: none; } }
+
+/* ---------- nav underline ---------- */
+.nav-links a { overflow: visible; }
+.nav-links a::before {
+  content: ""; position: absolute; left: 0; right: 100%; bottom: -6px; height: 2px;
+  background: var(--terracotta); transition: right 0.22s ease;
+}
+.nav-links a:hover::before { right: 0; }
+.nav-links a[aria-current="page"]::before { display: none; }
 
 /* ---------- badge / pill ---------- */
 .pill { display: inline-flex; align-items: center; gap: 6px; background: var(--terracotta-tint); color: var(--terracotta-dark); font-size: 0.78rem; font-weight: 600; padding: 6px 14px; border-radius: 40px; }
