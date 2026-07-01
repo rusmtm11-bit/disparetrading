@@ -78,28 +78,49 @@
 
   /* count-up numbers */
   var counters = document.querySelectorAll("[data-count-to]");
-  if ("IntersectionObserver" in window && counters.length) {
-    var counted = new WeakSet();
-    var cio = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting && !counted.has(entry.target)) {
-          counted.add(entry.target);
-          var el = entry.target;
-          var target = parseInt(el.getAttribute("data-count-to"), 10) || 0;
-          var duration = 900;
-          var start = null;
-          function step(ts) {
-            if (!start) start = ts;
-            var progress = Math.min((ts - start) / duration, 1);
-            el.textContent = Math.round(progress * target);
-            if (progress < 1) requestAnimationFrame(step);
+
+  function animateCounter(el) {
+    if (el.dataset.counted) return;
+    el.dataset.counted = "1";
+    var target = parseInt(el.getAttribute("data-count-to"), 10) || 0;
+    var duration = 900;
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      el.textContent = Math.round(progress * target);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  if (counters.length) {
+    if ("IntersectionObserver" in window) {
+      var cio = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) animateCounter(entry.target);
+          });
+        },
+        { threshold: 0.01, rootMargin: "0px 0px 100px 0px" }
+      );
+      counters.forEach(function (el) { cio.observe(el); });
+    } else {
+      counters.forEach(animateCounter);
+    }
+
+    /* Safety net: if the observer never fires for any reason (slow load,
+       browser quirk, element already in view before observe() attaches),
+       force the final numbers in shortly after load so they never get stuck at 0. */
+    window.addEventListener("load", function () {
+      setTimeout(function () {
+        counters.forEach(function (el) {
+          if (!el.dataset.counted) {
+            el.dataset.counted = "1";
+            el.textContent = el.getAttribute("data-count-to");
           }
-          requestAnimationFrame(step);
-        }
-      });
-    }, { threshold: 0.4 });
-    counters.forEach(function (el) { cio.observe(el); });
-  } else {
-    counters.forEach(function (el) { el.textContent = el.getAttribute("data-count-to"); });
+        });
+      }, 1200);
+    });
   }
 })();
