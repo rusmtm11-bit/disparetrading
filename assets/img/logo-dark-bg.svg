@@ -1,9 +1,8 @@
 <svg width="460" height="150" viewBox="0 0 460 150" xmlns="http://www.w3.org/2000/svg" role="img">
 <title>Dispare Trading (на тёмном фоне)</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&amp;display=swap');
-.wordmark { font-family: 'Space Grotesk', 'Arial', sans-serif; font-weight: 600; fill: #F5F2EC; }
-.subline { font-family: 'Space Grotesk', 'Arial', sans-serif; font-weight: 500; fill: #C9BFAE; letter-spacing: 5px; }
+.wordmark { font-family: 'Manrope', 'Arial', sans-serif; font-weight: 600; fill: #F5F2EC; }
+.subline { font-family: 'Manrope', 'Arial', sans-serif; font-weight: 500; fill: #C9BFAE; letter-spacing: 5px; }
 </style>
 <rect x="0" y="0" width="460" height="150" fill="#2B2620"/>
 <g transform="translate(56,60) scale(2.6) translate(-12,-12)">
