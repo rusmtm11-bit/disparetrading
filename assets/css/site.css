@@ -144,7 +144,7 @@ h3{font-size:24px;font-weight:700;line-height:1.15}
 .sticker .bars svg{clip-path:inset(0 100% 0 0);animation:print 1s steps(24) .8s forwards}
 .sticker .digits{display:flex;justify-content:space-between;font:700 15px/1 var(--display);letter-spacing:.18em;margin-top:6px}
 .sticker .check{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;font-size:14.5px}
-.sticker .check a{color:var(--copper)}
+.sticker .check a{color:var(--copper);font-weight:600}
 @media (prefers-color-scheme:dark){.sticker .check a{color:#87562c}}
 .copy{background:none;border:0;padding:0;font:inherit;color:var(--copper);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.18em;cursor:pointer}
 @media (prefers-color-scheme:dark){.sticker .copy{color:#87562c}}

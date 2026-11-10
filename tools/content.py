@@ -102,17 +102,16 @@ def _bars():
 def sticker(lang):
     if lang == "ru":
         t = dict(a="Поставщик", b="Пн–Пт, 10:00–18:00", who="ООО «ДИСПЭР»", rows=[("ИНН", "7733483947"), ("ОГРН", "1267700136582"), ("Налоги", "ОСНО, плательщик НДС"), ("Склад", "Московская обл.")],
-                 copy="Скопировать ИНН", check="Проверить в ФНС", aria="Наклейка поставщика: ООО «ДИСПЭР», ИНН 7733483947")
+                 shop="Перейти в магазин для партнёров", aria="Наклейка поставщика: ООО «ДИСПЭР», ИНН 7733483947")
     else:
         t = dict(a="Supplier", b="Mon–Fri, 10:00–18:00", who="DISPER LLC", rows=[("Tax ID (INN)", "7733483947"), ("Reg. no. (OGRN)", "1267700136582"), ("Taxes", "General regime, VAT payer"), ("Warehouse", "Moscow region")],
-                 copy="Copy tax ID", check="Check in the tax register", aria="Supplier label: DISPER LLC, tax ID 7733483947")
+                 shop="Go to the partner store", aria="Supplier label: DISPER LLC, tax ID 7733483947")
     dl = "".join(f'<dt>{k}</dt><dd class="num">{v}</dd>' if v[0].isdigit() else f'<dt>{k}</dt><dd>{v}</dd>' for k, v in t["rows"])
     digits = f'<span>{_EAN[0]}</span><span>{_EAN[1:7]}</span><span>{_EAN[7:]}</span>'
     return (f'<aside class="sticker" aria-label="{t["aria"]}"><div class="row"><span>{t["a"]}</span><span class="status" data-status>{t["b"]}</span></div>'
             f'<p class="who">{t["who"]}</p><dl>{dl}</dl>'
             f'<div class="bars">{_bars()}<div class="digits">{digits}</div></div>'
-            f'<div class="check"><button class="copy" type="button" data-copy="7733483947">{t["copy"]}</button>'
-            f'<a href="https://egrul.nalog.ru/" target="_blank" rel="noopener">{t["check"]}</a></div></aside>')
+            f'<div class="check"><a href="https://shop.disparetrading.ru/" target="_blank" rel="noopener">{t["shop"]}</a></div></aside>')
 
 
 # ---------------------------------------------------------------- building blocks
@@ -175,7 +174,7 @@ PAGES["index"] = {
     <form class="search" action="{shop}/search" method="get" target="_blank" role="search" data-search>
       <label for="pcode">Найти запчасть по артикулу</label>
       <div class="search-row">
-        <input id="pcode" name="pcode" type="search" autocomplete="off" spellcheck="false" placeholder="Например, 04465-33480" maxlength="40" required>
+        <input id="pcode" name="pcode" type="search" autocomplete="off" spellcheck="false" placeholder="Например, 1350550030" maxlength="40" required>
         <button class="btn" type="submit">Найти</button>
       </div>
       <small>Результаты откроются в нашем магазине для партнёров: цены, наличие, заказ.</small>
@@ -198,8 +197,8 @@ PAGES["index"] = {
 <section class="sec"><div class="wrap split">
   <div>
     <h2>Документы по каждой сделке</h2>
-    <p class="muted">Мы не берём наличные без документов и не продаём товар, который не прошёл таможню. Проверить нас можно до первой сделки: выписка из ЕГРЮЛ на сайте ФНС бесплатна.</p>
-    <div class="actions"><a class="btn btn-quiet" href="https://egrul.nalog.ru/" target="_blank" rel="noopener">Проверить в ФНС</a><a class="btn btn-quiet" href="{u_contacts}#requisites">Реквизиты</a></div>
+    <p class="muted">Мы не берём наличные без документов и не продаём товар, который не прошёл таможню. Все реквизиты компании открыты, а цены и наличие можно посмотреть в магазине для партнёров.</p>
+    <div class="actions"><a class="btn btn-quiet" href="{shop}/" target="_blank" rel="noopener">Магазин для партнёров</a><a class="btn btn-quiet" href="{u_contacts}#requisites">Реквизиты</a></div>
   </div>
   <ul class="docs">
     <li><div><b>Договор поставки</b><span>Цены, сроки, порядок оплаты и гарантия.</span></div></li>
@@ -226,7 +225,7 @@ PAGES["index"] = {
     <form class="search" action="{shop}/search" method="get" target="_blank" role="search" data-search>
       <label for="pcode">Find a part by part number</label>
       <div class="search-row">
-        <input id="pcode" name="pcode" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. 04465-33480" maxlength="40" required>
+        <input id="pcode" name="pcode" type="search" autocomplete="off" spellcheck="false" placeholder="e.g. 1350550030" maxlength="40" required>
         <button class="btn" type="submit">Search</button>
       </div>
       <small>Results open in our partner store, with prices, stock and ordering. The store is in Russian.</small>
@@ -249,8 +248,8 @@ PAGES["index"] = {
 <section class="sec"><div class="wrap split">
   <div>
     <h2>Documents for every deal</h2>
-    <p class="muted">We never take undocumented cash and never sell goods that have not cleared customs. You can check us before the first deal: an extract from the Russian company register is free on the Federal Tax Service website.</p>
-    <div class="actions"><a class="btn btn-quiet" href="https://egrul.nalog.ru/" target="_blank" rel="noopener">Check in the tax register</a><a class="btn btn-quiet" href="{u_contacts}#requisites">Company details</a></div>
+    <p class="muted">We never take undocumented cash and never sell goods that have not cleared customs. Our company details are public, and prices and stock are in the partner store.</p>
+    <div class="actions"><a class="btn btn-quiet" href="{shop}/" target="_blank" rel="noopener">Partner store</a><a class="btn btn-quiet" href="{u_contacts}#requisites">Company details</a></div>
   </div>
   <ul class="docs">
     <li><div><b>Supply contract</b><span>Prices, lead times, payment terms and warranty.</span></div></li>
@@ -291,9 +290,9 @@ PAGES["about"] = {
 </div></section>
 <section class="sec"><div class="wrap split">
   <div>
-    <h2>Проверьте нас до первой сделки</h2>
-    <p class="muted">Данные компании открыты. Выписку из ЕГРЮЛ можно бесплатно получить на сайте ФНС по ИНН.</p>
-    <div class="actions"><a class="btn btn-quiet" href="https://egrul.nalog.ru/" target="_blank" rel="noopener">Открыть сервис ФНС</a><a class="btn btn-quiet" href="{u_contacts}#requisites">Все реквизиты</a></div>
+    <h2>Карточка компании</h2>
+    <p class="muted">Данные компании открыты. Полные реквизиты для договора — на странице контактов.</p>
+    <div class="actions"><a class="btn btn-quiet" href="{shop}/" target="_blank" rel="noopener">Магазин для партнёров</a><a class="btn btn-quiet" href="{u_contacts}#requisites">Все реквизиты</a></div>
   </div>
   <table class="facts">
     <tr><th>Наименование</th><td>ООО «ДИСПЭР»</td></tr>
@@ -326,9 +325,9 @@ PAGES["about"] = {
 </div></section>
 <section class="sec"><div class="wrap split">
   <div>
-    <h2>Check us before the first deal</h2>
-    <p class="muted">Our company data is public. An extract from the Russian company register (EGRUL) is free on the Federal Tax Service website by tax ID.</p>
-    <div class="actions"><a class="btn btn-quiet" href="https://egrul.nalog.ru/" target="_blank" rel="noopener">Open the tax service</a><a class="btn btn-quiet" href="{u_contacts}#requisites">All company details</a></div>
+    <h2>Company card</h2>
+    <p class="muted">Our company data is public. Full details for contracts are on the contacts page.</p>
+    <div class="actions"><a class="btn btn-quiet" href="{shop}/" target="_blank" rel="noopener">Partner store</a><a class="btn btn-quiet" href="{u_contacts}#requisites">All company details</a></div>
   </div>
   <table class="facts">
     <tr><th>Legal name</th><td>DISPER LLC (ООО «ДИСПЭР»)</td></tr>
