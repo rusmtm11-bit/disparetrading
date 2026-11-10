@@ -172,7 +172,7 @@ def footer(lang):
         <li><a href="{SHOP}/" target="_blank" rel="noopener">{s['shop_btn']}</a></li>
       </ul></div>
       <div><h2>{s['f_contacts']}</h2><ul>
-        <li><a href="mailto:distribution@disparetrading.ru">distribution@disparetrading.ru</a></li>
+        <li><a href="mailto:distribution@disparetrading.ru">distribution@<wbr>disparetrading.ru</a></li>
         <li><a href="tel:+79939037079">+7 993 903-70-79</a></li>
         <li>{s['hours']}</li>
       </ul></div>
