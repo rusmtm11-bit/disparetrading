@@ -9,7 +9,7 @@ Only the standard library is used; GitHub Pages serves the generated .html files
 """
 import os, sys, html, json, shutil
 sys.path.insert(0, os.path.dirname(__file__))
-from content import PAGES, STR, CATS, ORDER  # noqa: E402
+from content import PAGES, STR, CATS, ORDER, sticker  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DOMAIN = "https://disparetrading.ru"
@@ -50,11 +50,11 @@ CIS_TZ = ("^(Europe\\/(Moscow|Kaliningrad|Samara|Volgograd|Saratov|Ulyanovsk|Ast
           "Vladivostok|Ust-Nera|Magadan|Sakhalin|Srednekolymsk|Kamchatka|Anadyr|Almaty|Qostanay|Aqtobe|Aqtau|Atyrau|Oral|"
           "Qyzylorda|Bishkek|Tashkent|Samarkand|Dushanbe|Ashgabat|Yerevan|Baku))$")
 
-# Runs before the page paints: marks JS on, picks the language once per session.
+# Runs before the page paints: picks the language once per session.
 # Rules: a manual choice (saved when the visitor clicks RU/EN) always wins; otherwise
 # Russia + CIS time zones or a Russian browser language -> Russian, everything else -> English.
 # Search engine bots are never redirected. Nothing leaves the browser.
-HEAD_JS = ("(function(){var d=document.documentElement;d.classList.add('js');"
+HEAD_JS = ("(function(){var d=document.documentElement;"
            "if(/bot|crawl|spider|slurp|yandex|google|bing|baidu|duckduck|facebookexternal|telegram|whatsapp|vkshare|lighthouse|headless|prerender|preview/i.test(navigator.userAgent))return;"
            "var L=d.lang,w=null;try{w=localStorage.getItem('dt-lang')}catch(e){}"
            "if(!w){try{if(sessionStorage.getItem('dt-auto'))return;sessionStorage.setItem('dt-auto','1')}catch(e){}"
@@ -97,8 +97,8 @@ def head(lang, slug, page):
 {noindex}
 <link rel="canonical" href="{canon}">
 {''.join(alt)}
-<meta name="theme-color" content="#f5f2ec" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1c1915" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f2f1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#191613" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Dispare Trading">
 <meta property="og:locale" content="{'ru_RU' if lang == 'ru' else 'en_US'}">
@@ -112,10 +112,10 @@ def head(lang, slug, page):
 <link rel="icon" type="image/svg+xml" href="{asset(lang, 'img/icon.svg')}">
 <link rel="icon" type="image/png" sizes="32x32" href="{asset(lang, 'img/icon-32.png')}">
 <link rel="apple-touch-icon" href="{asset(lang, 'img/icon-180.png')}">
-<link rel="preload" href="{asset(lang, 'fonts/manrope-' + ('cyrillic' if lang == 'ru' else 'latin') + '-wght-normal.woff2')}" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="{asset(lang, 'fonts/inter-' + ('cyrillic' if lang == 'ru' else 'latin') + '-wght-normal.woff2')}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{asset(lang, 'fonts/fira-sans-extra-condensed-' + ('cyrillic' if lang == 'ru' else 'latin') + '-800-normal.woff2')}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{asset(lang, 'fonts/golos-text-' + ('cyrillic' if lang == 'ru' else 'latin') + '-wght-normal.woff2')}" as="font" type="font/woff2" crossorigin>
 <script>{HEAD_JS}</script>
-<link rel="stylesheet" href="{asset(lang, 'css/site.css')}?v=2">
+<link rel="stylesheet" href="{asset(lang, 'css/site.css')}?v=3">
 <script type="application/ld+json">{json.dumps(org, ensure_ascii=False)}</script>
 </head>
 """
@@ -123,46 +123,32 @@ def head(lang, slug, page):
 
 def header(lang, slug):
     s = STR[lang]
-    nav = []
+    items = []
     for key in ("about", "catalog", "delivery", "warranty", "contacts"):
         cur = ' aria-current="page"' if key == slug else ""
-        nav.append(f'<li><a href="{href(lang, lang, key)}"{cur}>{s["nav"][key]}</a></li>')
-    other = "en" if lang == "ru" else "ru"
-    switch_slug = "index" if slug == "404" else slug
+        items.append(f'<li><a href="{href(lang, lang, key)}"{cur}>{s["nav"][key]}</a></li>')
+    sw_slug = "index" if slug == "404" else slug
     if lang == "ru":
-        lang_sw = (f'<span aria-current="true">RU</span>'
-                   f'<a href="{href(lang, "en", switch_slug)}" hreflang="en" lang="en" data-set-lang="en" title="English version">EN</a>')
+        sw = f'<span aria-current="true">RU</span><a href="{href(lang, "en", sw_slug)}" hreflang="en" lang="en" data-set-lang="en">EN</a>'
     else:
-        lang_sw = (f'<a href="{href(lang, "ru", switch_slug)}" hreflang="ru" lang="ru" data-set-lang="ru" title="Русская версия">RU</a>'
-                   f'<span aria-current="true">EN</span>')
+        sw = f'<a href="{href(lang, "ru", sw_slug)}" hreflang="ru" lang="ru" data-set-lang="ru">RU</a><span aria-current="true">EN</span>'
     return f"""<body>
-<a class="skip-link" href="#main">{s['skip']}</a>
-<div class="status" role="status" aria-live="off">
-  <div class="container">
-    <span class="status-pill" data-status-pill><i></i><span>{s['status_hours']}</span></span>
-    <span>{s['msk']} <b data-msk-clock>—</b></span>
-    <span class="status-hours" data-status-note>{s['hours_short']}</span>
-    <span class="status-legal">{s['status_legal']}</span>
-  </div>
-</div>
-<header class="site-header">
-  <div class="container nav">
-    <a class="brand" href="{href(lang, lang, 'index')}" aria-label="Dispare Trading — {s['home']}">
-      <span class="brand-mark">{MARK}</span>
-      <span class="brand-word">Dispare<small>TRADING</small></span>
-    </a>
-    <nav aria-label="{s['nav_label']}" id="site-nav">
-      <ul class="nav-links">
-        {''.join(nav)}
-        <li class="mobile-only"><a class="btn btn-shop" href="{SHOP}/" target="_blank" rel="noopener"><span class="tag">SHOP</span>{s['shop_btn']} <span class="arrow">→</span></a></li>
+<a class="skip" href="#main">{s['skip']}</a>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="{href(lang, lang, 'index')}"><span class="logo-plate">{MARK}</span><span class="logo-name">Dispare</span></a>
+    <nav aria-label="{s['nav_label']}">
+      <ul class="menu" id="menu">
+        {''.join(items)}
+        <li class="only-mobile"><span class="status" data-status></span></li>
+        <li class="only-mobile"><a class="btn" href="{SHOP}/" target="_blank" rel="noopener">{s['shop_btn']}</a></li>
       </ul>
     </nav>
-    <div class="nav-right">
-      <a class="nav-phone" href="tel:+79939037079">+7 993 903-70-79</a>
-      <div class="lang" role="group" aria-label="{s['lang_label']}">{lang_sw}</div>
-      <a class="btn btn-shop btn-sm" href="{SHOP}/" target="_blank" rel="noopener"><span class="tag">SHOP</span>{s['shop_btn']} <span class="arrow">→</span></a>
-      <a class="btn btn-primary btn-sm btn-contact" href="{href(lang, lang, 'contacts')}">{s['contact_btn']}</a>
-      <button class="menu-toggle" aria-label="{s['menu']}" aria-expanded="false" aria-controls="site-nav"><span></span></button>
+    <div class="top-right">
+      <span class="status" data-status>{s['hours']}</span>
+      <div class="lang" role="group" aria-label="{s['lang_label']}">{sw}</div>
+      <a class="btn btn-small" href="{SHOP}/" target="_blank" rel="noopener">{s['shop_btn']}</a>
+      <button class="burger" type="button" aria-controls="menu" aria-expanded="false" data-open="{s['menu']}" data-close="{s['close']}">{s['menu']}</button>
     </div>
   </div>
 </header>
@@ -172,64 +158,53 @@ def header(lang, slug):
 def footer(lang):
     s = STR[lang]
     nav = "".join(f'<li><a href="{href(lang, lang, k)}">{s["nav"][k]}</a></li>' for k in ("about", "catalog", "delivery", "warranty", "contacts"))
-    return f"""<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a class="brand" href="{href(lang, lang, 'index')}"><span class="brand-mark">{MARK}</span><span class="brand-word">Dispare<small>TRADING</small></span></a>
+    return f"""<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="logo" href="{href(lang, lang, 'index')}"><span class="logo-plate">{MARK}</span><span class="logo-name">Dispare</span></a>
         <p>{s['footer_about']}</p>
       </div>
-      <div><h4>{s['f_nav']}</h4><ul>{nav}</ul></div>
-      <div><h4>{s['f_docs']}</h4><ul>
-        <li><a href="{href(lang, lang, 'privacy')}">{s['privacy']}</a></li>
+      <div><h2>{s['f_nav']}</h2><ul>{nav}</ul></div>
+      <div><h2>{s['f_docs']}</h2><ul>
         <li><a href="{href(lang, lang, 'contacts', '#requisites')}">{s['requisites']}</a></li>
-        <li><a href="{SHOP}/" target="_blank" rel="noopener">{s['shop_btn']} ↗</a></li>
+        <li><a href="{href(lang, lang, 'privacy')}">{s['privacy']}</a></li>
+        <li><a href="{SHOP}/" target="_blank" rel="noopener">{s['shop_btn']}</a></li>
       </ul></div>
-      <div><h4>{s['f_contacts']}</h4><ul>
+      <div><h2>{s['f_contacts']}</h2><ul>
         <li><a href="mailto:distribution@disparetrading.ru">distribution@disparetrading.ru</a></li>
         <li><a href="tel:+79939037079">+7 993 903-70-79</a></li>
         <li>{s['hours']}</li>
-        <li>{s['warehouse_addr']}</li>
       </ul></div>
     </div>
-    <div class="footer-legal">
-      <span>© <span data-year>2026</span> {s['legal_line']}</span>
-      <span>{s['footer_white']}</span>
-    </div>
+    <div class="legal"><span>© <span data-year>2026</span> {s['legal_line']}</span><span>{s['warehouse_addr']}</span></div>
   </div>
 </footer>
-<script src="{asset(lang, 'js/site.js')}?v=2" defer></script>
+<script src="{asset(lang, 'js/site.js')}?v=3" defer></script>
 </body>
 </html>
 """
 
 
 def ctx(lang):
-    """Helpers available to page bodies as {placeholders}."""
     c = {"shop": SHOP, "mail": "distribution@disparetrading.ru", "tel": "+79939037079"}
     for k in ORDER:
         c["u_" + k] = href(lang, lang, k)
-    c["u_other_index"] = href(lang, "en" if lang == "ru" else "ru", "index")
     return c
 
 
 def render_cats(lang, mode):
     s = STR[lang]
     out = []
-    for i, cat in enumerate(CATS, 1):
+    for cat in CATS:
         name, text = cat[lang]
-        code = "%s-%02d" % ("К" if lang == "ru" else "C", i)
+        subj = html.escape(s["mail_subject_cat"] % name)
+        mail = f'<a href="mailto:distribution@disparetrading.ru?subject={subj}">{s["request_quote"]}</a>'
+        shop = f'<a href="{SHOP}/" target="_blank" rel="noopener">{s["find_in_shop"]}</a>'
         if mode == "home":
-            out.append(f'<a class="cat-card" href="{href(lang, lang, "catalog", "#" + cat["id"])}" data-reveal>'
-                       f'<span class="code"><span>{code}</span><span>{cat["tag"][lang]}</span></span>{cat["icon"]}'
-                       f'<h3>{name}</h3><p>{text}</p><span class="more">{s["more"]} <span>→</span></span></a>')
+            out.append(f'<div><h3>{name}</h3><p>{text}</p></div>')
         else:
-            subj = html.escape(s["mail_subject_cat"] % name)
-            out.append(f'<div class="cat-card" id="{cat["id"]}" data-reveal>'
-                       f'<span class="code"><span>{code}</span><span>{cat["tag"][lang]}</span></span>{cat["icon"]}'
-                       f'<h3>{name}</h3><p>{cat["long"][lang]}</p>'
-                       f'<div class="cat-actions"><a class="link" href="{SHOP}/" target="_blank" rel="noopener">{s["find_in_shop"]} ↗</a>'
-                       f'<a class="link" href="mailto:distribution@disparetrading.ru?subject={subj}">{s["request_quote"]}</a></div></div>')
+            out.append(f'<div id="{cat["id"]}"><h2>{name}</h2><p>{cat["long"][lang]}</p><div class="links">{shop}{mail}</div></div>')
     return "".join(out)
 
 
@@ -244,6 +219,7 @@ def build():
             page = PAGES[slug][lang]
             c = ctx(lang)
             c["cats_home"] = render_cats(lang, "home")
+            c["sticker"] = sticker(lang)
             c["cats_full"] = render_cats(lang, "full")
             body = page["body"].format(**c)
             doc = head(lang, slug, page) + header(lang, slug) + '<main id="main">\n' + body + "\n</main>\n" + footer(lang)
